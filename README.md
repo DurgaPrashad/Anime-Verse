@@ -1,4 +1,5 @@
-# AnimeVerse - The Ultimate Social Universe for Anime Fans
+# AnimeVerse – The Ultimate Social Platform for Anime Enthusiasts
+A fully responsive experience, designed for both 📱 mobile and 🖥️ desktop users.
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/d415a3e4-213b-4c10-9db1-83cd6bcdd9aa" width="800"/>
