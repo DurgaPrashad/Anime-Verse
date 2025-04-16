@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 
 interface FloatingAnimeCharacterProps {
@@ -90,20 +89,20 @@ const FloatingAnimeCharacter = ({ imagePath, position, speed = 1 }: FloatingAnim
             isHovered 
               ? "bg-primary/40 scale-[1.7]" 
               : "bg-primary/20"
-          }`}
-        ></div>
+          }`}></div>
         
-        {/* Character image - smaller size for the dashboard */}
+        {/* Character image - increased size */}
         <img 
           src={imagePath} 
           alt="Anime character" 
-          className={`w-24 h-24 md:w-32 md:h-32 object-contain transition-all duration-300 ${
+          className={`w-32 h-32 md:w-40 md:h-40 object-contain transition-all duration-300 ${
             isHovered 
               ? "drop-shadow-[0_0_25px_rgba(217,70,239,0.8)]" 
               : "drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]"
           }`}
           style={{ 
-            filter: `drop-shadow(0 0 ${isHovered ? '20px' : '10px'} rgba(126, 105, 171, 0.7))` 
+            filter: position === 'center' && !isHovered ? 'blur(4px)' : 'none',
+            transition: 'filter 0.3s ease-in-out' 
           }}
         />
         
