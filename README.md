@@ -2,7 +2,9 @@
 A fully responsive experience, designed for both 📱 mobile and 🖥️ desktop users.
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/d415a3e4-213b-4c10-9db1-83cd6bcdd9aa" width="800"/>
+  
+  <img src="https://github.com/user-attachments/assets/a0ac5319-83a5-4253-86d3-4e1dad398f07" width="800"/>
+
   <h3>Connect, Share, and Immerse Yourself in Anime Culture</h3>
 </div>
 
