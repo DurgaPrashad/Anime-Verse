@@ -1,0 +1,224 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Shonen (Light) Theme */
+    --background: 260 40% 98%; /* Light lavender bg */
+    --foreground: 260 30% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 260 30% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 30% 25%;
+    --primary: 260 60% 55%; /* Anime purple */
+    --primary-foreground: 0 0% 100%;
+    --primary-rgb: 126, 105, 171; /* RGB values for primary color */
+    --secondary: 320 90% 70%; /* Anime pink */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-rgb: 217, 70, 239; /* RGB values for secondary color */
+    --muted: 260 20% 92%;
+    --muted-foreground: 260 10% 40%;
+    --accent: 260 50% 88%;
+    --accent-foreground: 260 30% 25%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 260 20% 85%;
+    --input: 260 20% 85%;
+    --ring: 260 60% 55%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Seinen (Dark) Theme */
+    --background: 260 30% 10%; /* Dark purple bg */
+    --foreground: 260 20% 92%;
+    --card: 260 25% 15%;
+    --card-foreground: 260 20% 92%;
+    --popover: 260 25% 15%;
+    --popover-foreground: 260 20% 92%;
+    --primary: 260 80% 70%; /* Brighter anime purple */
+    --primary-foreground: 0 0% 100%;
+    --primary-rgb: 155, 135, 245; /* RGB values for primary color */
+    --secondary: 300 95% 65%; /* Vibrant pink */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-rgb: 234, 122, 244; /* RGB values for secondary color */
+    --muted: 260 25% 20%;
+    --muted-foreground: 260 10% 75%;
+    --accent: 260 50% 30%;
+    --accent-foreground: 260 20% 92%;
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 260 20% 92%;
+    --border: 260 30% 25%;
+    --input: 260 30% 25%;
+    --ring: 260 80% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+  .h1 {
+    @apply font-display text-4xl font-bold md:text-5xl lg:text-6xl;
+  }
+  .h2 {
+    @apply font-display text-3xl font-bold md:text-4xl;
+  }
+  .h3 {
+    @apply font-display text-2xl font-bold md:text-3xl;
+  }
+  .h4 {
+    @apply font-display text-xl font-bold md:text-2xl;
+  }
+}
+
+@layer components {
+  /* ... keep existing code (anime-card, futuristic-card, avatar-border, etc.) */
+  
+  /* Enhanced anime-specific components */
+  .anime-avatar {
+    @apply transition-transform duration-300 ease-out hover:scale-110;
+    filter: contrast(1.05) saturate(1.1);
+  }
+  
+  .cyber-border {
+    @apply relative before:absolute before:inset-0 before:p-[1px] before:rounded-lg 
+           before:bg-gradient-to-r before:from-primary/50 before:via-secondary/60 before:to-primary/50 before:-z-10
+           after:absolute after:inset-0 after:p-[1px] after:rounded-lg after:blur-sm 
+           after:bg-gradient-to-r after:from-primary/30 after:via-secondary/30 after:to-primary/30 after:-z-20;
+  }
+  
+  .cyber-input {
+    @apply focus:ring-1 focus:ring-primary/50 focus:border-primary/50
+           relative before:absolute before:inset-0 before:p-[1px] before:rounded-md 
+           before:bg-gradient-to-r before:from-primary/30 before:to-secondary/30 before:-z-10;
+  }
+  
+  .cyber-glow {
+    @apply relative after:absolute after:inset-0 after:rounded-full after:blur-lg 
+           after:bg-primary/40 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:-z-10;
+  }
+  
+  .cyber-button {
+    @apply relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground
+           before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/10 before:to-secondary/40 
+           before:translate-y-full hover:before:translate-y-0 before:transition-transform before:duration-300;
+  }
+  
+  /* Interactive anime comment bubble */
+  .anime-comment {
+    @apply relative p-3 bg-muted/60 rounded-lg border border-border before:absolute
+           before:top-[calc(100%-8px)] before:left-4 before:rotate-45 before:w-4 before:h-4
+           before:border-r before:border-b before:border-border before:bg-muted/60 before:-z-10;
+  }
+  
+  .japanese-pattern-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  /* Enhanced card design */
+  .futuristic-card {
+    @apply bg-card/80 backdrop-blur-md border border-border rounded-lg p-5 shadow-lg transition-all duration-300
+           hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30;
+  }
+  
+  /* New animation for gradient button */
+  .bg-gradient-anime {
+    @apply bg-gradient-to-r from-primary via-secondary to-primary bg-size-200 animate-gradient;
+  }
+}
+
+@layer utilities {
+  /* ... keep existing code (animate-float, animate-glow, etc.) */
+  
+  /* Enhanced anime-style animations and utilities */
+  .animate-pulse-soft {
+    animation: pulse-soft 3s ease-in-out infinite;
+  }
+  
+  .animate-spin-slow {
+    animation: spin 10s linear infinite;
+  }
+  
+  .animate-gradient {
+    animation: gradientShift 3s linear infinite;
+  }
+  
+  .bg-size-200 {
+    background-size: 200% 200%;
+  }
+  
+  .neon-text {
+    @apply relative;
+    text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.7), 0 0 10px rgba(var(--secondary-rgb), 0.5);
+  }
+  
+  /* Enhanced sakura petals animation */
+  .sakura-petals {
+    @apply absolute inset-0 opacity-10 pointer-events-none overflow-hidden;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23d946ef' fill-opacity='0.2' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'%3E%3C/path%3E%3C/svg%3E");
+    animation: fall 30s linear infinite;
+  }
+  
+  /* Enhanced neon particles */
+  .neon-particles {
+    @apply absolute inset-0 opacity-5 pointer-events-none overflow-hidden;
+    background-image: radial-gradient(circle, rgba(var(--primary-rgb), 0.5) 1px, transparent 1px),
+                      radial-gradient(circle, rgba(var(--secondary-rgb), 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fall {
+  0% { background-position: 0 0; }
+  100% { background-position: 500px 500px; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Enhanced animations for neon text effect */
+@keyframes neon-pulse {
+  0%, 100% { 
+    text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.5), 
+                0 0 10px rgba(var(--secondary-rgb), 0.5); 
+  }
+  50% { 
+    text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.8), 
+                0 0 20px rgba(var(--secondary-rgb), 0.8),
+                0 0 30px rgba(var(--primary-rgb), 0.3); 
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
