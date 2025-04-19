@@ -154,6 +154,84 @@ import {
      return () => window.removeEventListener('scroll', handleScroll);
    }, []);
  
+   // Add custom scrollbar styles
+   useEffect(() => {
+     // Create a style element
+     const styleElement = document.createElement('style');
+     
+     // Define the custom scrollbar styles with violet glow effect
+     styleElement.textContent = `
+       /* Custom scrollbar styles for the entire page */
+       ::-webkit-scrollbar {
+         width: 10px;
+         height: 10px;
+       }
+       
+       ::-webkit-scrollbar-track {
+         background: rgba(30, 30, 46, 0.5);
+         border-radius: 10px;
+       }
+       
+       ::-webkit-scrollbar-thumb {
+         background: #8b5cf6;
+         border-radius: 10px;
+         box-shadow: 0 0 8px #a78bfa, 0 0 15px rgba(139, 92, 246, 0.6);
+       }
+       
+       ::-webkit-scrollbar-thumb:hover {
+         background: #9f7aea;
+         box-shadow: 0 0 12px #a78bfa, 0 0 20px rgba(139, 92, 246, 0.8);
+       }
+       
+       /* For Firefox */
+       * {
+         scrollbar-width: thin;
+         scrollbar-color: #8b5cf6 rgba(30, 30, 46, 0.5);
+       }
+       
+       /* Hide scrollbar class but maintain functionality */
+       .hide-scrollbar {
+         -ms-overflow-style: none;  /* IE and Edge */
+         scrollbar-width: none;     /* Firefox */
+       }
+       
+       /* Custom scrollbar for horizontal scrolling sections with glowing effect */
+       .horizontal-scroll::-webkit-scrollbar {
+         height: 6px;
+       }
+       
+       .horizontal-scroll::-webkit-scrollbar-track {
+         background: rgba(30, 30, 46, 0.3);
+         border-radius: 10px;
+       }
+       
+       .horizontal-scroll::-webkit-scrollbar-thumb {
+         background: #8b5cf6;
+         border-radius: 10px;
+         box-shadow: 0 0 8px #a78bfa, 0 0 15px rgba(139, 92, 246, 0.6);
+       }
+       
+       /* Pulsing glow animation for scrollbar */
+       @keyframes scrollGlow {
+         0% { box-shadow: 0 0 5px #a78bfa, 0 0 10px rgba(139, 92, 246, 0.4); }
+         50% { box-shadow: 0 0 10px #a78bfa, 0 0 20px rgba(139, 92, 246, 0.8); }
+         100% { box-shadow: 0 0 5px #a78bfa, 0 0 10px rgba(139, 92, 246, 0.4); }
+       }
+       
+       ::-webkit-scrollbar-thumb {
+         animation: scrollGlow 2s infinite;
+       }
+     `;
+     
+     // Append the style element to the document head
+     document.head.appendChild(styleElement);
+     
+     // Clean up function to remove the style element when component unmounts
+     return () => {
+       document.head.removeChild(styleElement);
+     };
+   }, []);
+ 
    return (
      <DashboardLayout>
        {/* Content container with max width and auto margins for centering */}
@@ -365,9 +443,9 @@ import {
                ))}
              </div>
  
-             {/* Explore Section - Horizontally Scrollable */}
+             {/* Explore Section - Horizontally Scrollable with custom scrollbar */}
              <h2 className="text-2xl font-bold my-6">Explore New Anime</h2>
-             <div className="relative w-full overflow-x-auto pb-4 hide-scrollbar" ref={exploreRef}>
+             <div className="relative w-full overflow-x-auto pb-4 horizontal-scroll" ref={exploreRef}>
                <div className="flex space-x-4 min-w-max">
                  {exploreData.map((item) => (
                    <div key={item.id} className="w-72 flex-shrink-0">
@@ -391,9 +469,9 @@ import {
                </div>
              </div>
  
-             {/* Fan Art Section - Horizontally Scrollable */}
+             {/* Fan Art Section - Horizontally Scrollable with custom scrollbar */}
              <h2 className="text-2xl font-bold my-6">Fan Art Gallery</h2>
-             <div className="relative w-full overflow-x-auto pb-4 hide-scrollbar" ref={fanArtRef}>
+             <div className="relative w-full overflow-x-auto pb-4 horizontal-scroll" ref={fanArtRef}>
                <div className="flex space-x-4 min-w-max">
                  {fanArt.map((art) => (
                    <div key={art.id} className="w-60 flex-shrink-0">
@@ -410,80 +488,98 @@ import {
                            <p className="text-xs">by {art.artist}</p>
                          </div>
                          <div className="absolute top-2 right-2 bg-black/50 rounded-full px-2 py-1 flex items-center text-xs text-white">
-                           <Heart size={12} className="text-rose-500 mr-1" fill="currentColor" />
-                           {art.likes}
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                 ))}
-               </div>
-             </div>
- 
-             {/* Communities Section - Horizontally Scrollable */}
-             <h2 className="text-2xl font-bold my-6">Anime Communities</h2>
-             <div className="relative w-full overflow-x-auto pb-4 hide-scrollbar" ref={communitiesRef}>
-               <div className="flex space-x-4 min-w-max">
-                 {communities.map((community) => (
-                   <div key={community.id} className="w-64 flex-shrink-0">
-                     <div className="futuristic-card overflow-hidden h-full">
-                       <div className="flex items-center p-3 border-b border-border">
-                         <Avatar className="h-10 w-10 mr-3">
-                           <img src={community.image} alt={community.name} className="object-cover" />
-                         </Avatar>
-                         <div className="flex-1">
-                           <h3 className="font-bold text-sm">{community.name}</h3>
-                           <p className="text-xs text-muted-foreground">{community.members} members</p>
-                         </div>
-                       </div>
-                       <div className="p-3">
-                         <Button 
-                           variant={community.isJoined ? "outline" : "default"}
-                           size="sm" 
-                           className="w-full"
-                         >
-                           {community.isJoined ? "Joined" : "Join"}
-                         </Button>
-                       </div>
-                     </div>
-                   </div>
-                 ))}
-               </div>
-             </div>
-             
-             {/* Settings Section */}
-             <h2 className="text-2xl font-bold my-6">Settings</h2>
-             <div className="futuristic-card">
-               <h3 className="text-lg font-bold mb-4">Theme Colors</h3>
-               <div className="flex flex-wrap gap-3">
-                 <Button 
-                   className="bg-blue-500 hover:bg-blue-600 text-white"
-                   onClick={() => applyTheme("blue")}
-                 >
-                   Blue
-                 </Button>
-                 <Button 
-                   className="bg-yellow-500 hover:bg-yellow-600 text-white"
-                   onClick={() => applyTheme("yellow")}
-                 >
-                   Yellow
-                 </Button>
-                 <Button 
-                   className="bg-green-500 hover:bg-green-600 text-white"
-                   onClick={() => applyTheme("green")}
-                 >
-                   Green
-                 </Button>
-               </div>
-             </div>
-           </div>
-           
-           {/* Right spacer for larger screens */}
-           <div className="hidden lg:block lg:col-span-1"></div>
-         </div>
-       </div>
- 
-       {/* Enhanced floating action button for mobile */}
+                          <Heart size={12} className="text-rose-500 mr-1" fill="currentColor" />
+                          {art.likes}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Communities Section - Horizontally Scrollable with custom scrollbar */}
+            <h2 className="text-2xl font-bold my-6">Anime Communities</h2>
+            <div className="relative w-full overflow-x-auto pb-4 horizontal-scroll" ref={communitiesRef}>
+              <div className="flex space-x-4 min-w-max">
+                {communities.map((community) => (
+                  <div key={community.id} className="w-64 flex-shrink-0">
+                    <div className="futuristic-card overflow-hidden h-full">
+                      <div className="flex items-center p-3 border-b border-border">
+                        <Avatar className="h-10 w-10 mr-3">
+                          <img src={community.image} alt={community.name} className="object-cover" />
+                        </Avatar>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-sm">{community.name}</h3>
+                          <p className="text-xs text-muted-foreground">{community.members} members</p>
+                        </div>
+                      </div>
+                      <div className="p-3">
+                        <Button 
+                          variant={community.isJoined ? "outline" : "default"}
+                          size="sm" 
+                          className="w-full"
+                        >
+                          {community.isJoined ? "Joined" : "Join"}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Settings Section */}
+            <h2 className="text-2xl font-bold my-6">Settings</h2>
+            <div className="futuristic-card">
+              <h3 className="text-lg font-bold mb-4">Theme Colors</h3>
+              <div className="flex flex-wrap gap-3">
+                <Button 
+                  className="bg-blue-500 hover:bg-blue-600 text-white"
+                  onClick={() => applyTheme("blue")}
+                >
+                  Blue
+                </Button>
+                <Button 
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                  onClick={() => applyTheme("yellow")}
+                >
+                  Yellow
+                </Button>
+                <Button 
+                  className="bg-green-500 hover:bg-green-600 text-white"
+                  onClick={() => applyTheme("green")}
+                >
+                  Green
+                </Button>
+              </div>
+            </div>
+            
+            {/* Scrollbar Style Demo Section */}
+            <h2 className="text-2xl font-bold my-6">Scrollbar Style</h2>
+            <div className="futuristic-card">
+              <h3 className="text-lg font-bold mb-4">Custom Violet Scrollbars</h3>
+              <div className="h-40 overflow-y-auto p-4 border border-violet-500/30 rounded-lg bg-violet-900/10">
+                <div className="space-y-4">
+                  {Array(10).fill(0).map((_, i) => (
+                    <div key={i} className="p-3 border border-violet-500/20 rounded bg-violet-900/5 hover:bg-violet-900/20 transition-colors">
+                      <p className="text-sm">Scroll item #{i+1} - This scrollable area demonstrates the custom violet scrollbar with glow effect</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="mt-4 text-sm text-violet-300">
+               -----------
+              </p>
+            </div>
+          </div>
+          
+          {/* Right spacer for larger screens */}
+          <div className="hidden lg:block lg:col-span-1"></div>
+        </div>
+      </div>
+
+      {/* Enhanced floating action button for mobile */}
       <div className="fixed right-4 bottom-20 md:hidden z-50">
         <Button 
           size="icon" 
