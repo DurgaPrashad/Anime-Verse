@@ -30,6 +30,7 @@ Express your unique anime identity with:
 - Lists for watched anime, favorites, and currently watching
 - Favorite genre and character showcases
 - Social networking with follow/friend features
+![image](https://github.com/user-attachments/assets/1bff4322-b410-49fc-b2c0-a1655367db83)
 
 ### 💬 Vibrant Forums & Communities
 Engage in thoughtful discussions across various categories:
