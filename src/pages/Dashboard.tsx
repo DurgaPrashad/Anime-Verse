@@ -556,20 +556,20 @@ import {
             </div>
             
             {/* Scrollbar Style Demo Section */}
-            <h2 className="text-2xl font-bold my-6">Scrollbar Style</h2>
+            <h2 className="text-2xl font-bold my-6"> 🧭 Anime Scroll Zone</h2>
             <div className="futuristic-card">
-              <h3 className="text-lg font-bold mb-4">Custom Violet Scrollbars</h3>
+              <h3 className="text-lg font-bold mb-4">Glide Through Infinite Realms</h3>
               <div className="h-40 overflow-y-auto p-4 border border-violet-500/30 rounded-lg bg-violet-900/10">
                 <div className="space-y-4">
                   {Array(10).fill(0).map((_, i) => (
                     <div key={i} className="p-3 border border-violet-500/20 rounded bg-violet-900/5 hover:bg-violet-900/20 transition-colors">
-                      <p className="text-sm">Scroll item #{i+1} - This scrollable area demonstrates the custom violet scrollbar with glow effect</p>
+                      <p className="text-sm">Scroll item #{i+1} Scroll like you’re navigating a portal to another saga.</p>
                     </div>
                   ))}
                 </div>
               </div>
               <p className="mt-4 text-sm text-violet-300">
-               -----------
+               ------------------------------
               </p>
             </div>
           </div>
